@@ -1,8 +1,8 @@
 -----------------------------------------------------------------------------------
 # json
-    프로그래머가 파일에 정보를 저장하기 위해 만든 방식 중 하나
-    nodeJS인 경우 파일명은 반드시 package.json이여야만 한다
-    nodeJS는 마치 레고와 같다. 아무것도 없는 상태에서 시작한다
+    (1) 프로그래머가 파일에 정보를 저장하기 위해 만든 방식 중 하나
+    (2) nodeJS인 경우 파일명은 반드시 package.json이여야만 한다
+    (3) nodeJS는 마치 레고와 같다. 아무것도 없는 상태에서 시작한다
 -----------------------------------------------------------------------------------
 # 2.0 git repository 만들기
     (1) git init
@@ -27,4 +27,54 @@
     (11) node_modules 안에 express 안에 존재하는 package.json안에 dependencies는 express가 작동되기위해 필요한 패키지들을 나타낸다
     (12) express를 설치하는데 의존하고 있는 패키지가 있기 때문에 npm i express를 하면 그것들도 함께 설치된다
     (13) npm i express 를 했을 때 npm 이 알아서 dependencies에 express를 추가해준다
+-----------------------------------------------------------------------------------
+# 2.2 Understanding Dependencies
+    (1) 이번 프로젝트에서는 npm install express를 실행하지 않을 것이기 때문에 생성된 파일을 지워준다
+    (2) express 를 제외한 npm install 만을 실행한다 -> npde_modules 폴더와 package-lock.json 파일이 생성된다
+         npm 은 충분히 똑똑해서 package.json 안에 dependencies를 찾아서 그 안에 있는 모듈들을 알아서 설치한다
+         이를 통해 알 수 있듯 package.json 은 프로젝트를 동작시킬 때 필요한 모듈들에 대한 정보를 담고 있다
+         node_modules 폴더는 매우 큰 용량을 차지하기 때문에 협업 등을 할 때 매우 유용하다
+         프로젝트를 공유하고 싶으면 package.json 과 index.js만 보내주면 되기 때문이다
+    (3) package-lock.json은 패키지들은 안전하게 관리해주는 역할을 한다 (패키지가 수정 됐는지 해시값으로 체크해주는 등)
+    (4) node_modules 를 깃허브에 올리지 않기 위해 .gitignore 파일을 생성한다
+         생성한 파일에 /node_modules 를 작성한다
+    (10) npm 이 자동으로 package.json을 수정하기 때문에 실행할 때에는 반드시 package.json파일을 닫아주는게(저장하는것) 좋다
+-----------------------------------------------------------------------------------
+# 2.3 The Rower of Babel
+    (1) express 를 사용하는 방법은 아주 간단하다
+        index.js 에다가 const express = require("express"); 를 작성한다 OR import express from "express";
+        그 후 const app = express(); 를 해주면 express 애플리케이션을 만든 것이다
+    (2) Babel 은 JS 컴파일러이다
+        nodeJS가 아직 이해하지 못하는 최신 자바스크립트 코드가 존재하기 때문에 사용한다
+        babel 은 내가 작성한 최신 자바스크립트를 컴파일 해준다
+        내가 최신 자바스크립트 코드를 작성하면 모두가 이해할 수 있는 안정된 자바스크립트 코드로 변환 해 준다
+    (3) npm install --save-dev @babel/core 로 babel 을 설치한다
+        package.json 파일안에 "devDependencies" 가 추가된다
+    (4) devDependencies 는 개발자에게 필요한 dependencies 이다
+        즉, dependencies 는 프로젝트를 실행하기 위해 필요한 dependencies, (전기차를 위한 전기와 같은 것)
+        devDependencies 는 개발자에게 필요한 dependencies 이다 (졸음운전을 막기위한 껌과 같은 것)
+        결과적으로 모든건 node_modules에 설치되기 때문에 큰 문제는 아니지만 install하기위한 코드가 다르다는게 중요하다
+        devDependencies 를 install 할 때 들어간 --save-dev 가 그것이다 (--save-dev가 없이 실행하면 자동으로 dependencies에 들어간다)
+    (5) babel.config.json 이라는 설정 파일을 만들어야 한다
+        그 후 Babel에서 작성하라는데로 작성 해 주면 된다
+        {
+            "presets": ["@babel/preset-env"]
+        }
+        babel 은 알아서 이 파일을 찾고 내용을 들여다 볼 것이다
+    (6) npm install @babel/preset-env --save-dev 로 install 해준다
+        preset 은 거대한 플러그인이다
+        이번 프로젝트에서 사용할건 최신 자바스크립트를 쓸 수 있는 preset-env이다
+-----------------------------------------------------------------------------------
+# 2.4 Nodemon
+    (1) package.json 파일에 babel로 컴파일하는 scripts를 만들기 위해 Nodemon을 사용한다
+    (2) npm install @babel/node --save-dev 로 설치해준다
+    (3) package.json 파일에 scripts에 node index.js 부분을 babel-node index.js 로 변경한다
+        nodeJS를 실행하는데 babel도 같이 적용되서 실행된다
+        하지만 파일을 변경할 때 마다 실행시켜 줘야 하기 때문에 nodemon을 사용한다
+    (4) nodemon은 내가 만든 파일이 수정되는걸 감시해주는 패키지이다
+        파일이 수정되면 nodemon이 알아서 재시작을 해준다
+    (5) npm i nodemon --save-dev 로 설치해준다
+    (6) package.json 파일에 scripts에 node index.js 부분을 nodemon --exec babel-node index.js 로 변경한다
+        --exec 옵션 뒤에 babel-node index.js 를 사용해 실행하게 만든다
+    (7) 실행하면 console이 종료되지않고 파일이 수정될 때 마다 실행해준다
 -----------------------------------------------------------------------------------
