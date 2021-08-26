@@ -1,0 +1,69 @@
+-----------------------------------------------------------------------------------
+# 3.0 Server
+    (1) src 라는 폴더를 만들어 코드와 로직을 가지고 있는 모든 파일들을 src 안에 넣는다
+        이를 위해 scripts 를 nodemon --exec babel-node src/index.js 로 수정한다
+    (2) express를 import 해준다
+    (3) express function을 사용하면 express application을 생성해준다
+        const app = express();
+    (4) 서버는 24시간 내내 온라인에 연결된 컴퓨터로서 request를 listening 하고 있다
+    (5) app.listen() 은 callback 을 가지고있다.
+    (6) callback 을 작성하기전에 서버에게 어떤 port를 listening할지 말해줘야 한다
+        port는 컴퓨터의 문이나 창문과 같은 것이다
+        컴퓨터의 몇몇 port들은 인터넷과 연결되어 있다
+        보통 높은 번호의 port는 비어있는 경우가 많다
+    (7) listen함수에 port 와 callback 을 작성한다
+        ex) app.listen(4000, handleListening)
+            바닐라 JS의 click event와 비슷하다
+    (8) handleListening 함수를 만든다 // 화살표 함수를 사용해도 무관하다
+    (9) 이 과정으로 인해 서버가 만들어졌고, 그 서버가 port 4000을 listening하고 있다
+    (10) 보통은, 서버를 시작했다면 localhost를 통해서 접속 할 수 있다
+    (11) 지금의 경우에는 localhost:4000으로 접속이 가능하다
+-----------------------------------------------------------------------------------
+# 3.1 GET Requests
+    (1) localhost:4000 에 접속하면 Cannot GET / 라는 메세지가 나온다
+    (2) 여기서 / 은 서버의 root, 혹은 첫 페이지다
+    (3) 여기에 쓰인 GET은 HTTP method 다
+        저 페이지를 갖다줘 할 때의 get이다
+    (4) HTTP는 서버가 서로 소통하는 방법이다
+        유저들이 접속하려고 할 떄 브라우저가 대신해서 http request를 하고, 페이지를 가져다 준다
+-----------------------------------------------------------------------------------
+# 3.2 GET Requests part Two
+    (1) express Application을 만들고, 외부 접속을 listen하는 사이에 application 설정을 한다
+    (2) Application에게 get request에 응답하는 방법 등등을 가르친다
+    (3) app.get("/", controller);
+        누군가가 어떤 route로, 이 경우엔 home으로 get request를 보낸다면 callback한다
+-----------------------------------------------------------------------------------
+# 3.3 Responses
+    (1) 현재 서버는 request를 받아들이고 listening하고 있지만, 응답하고 있지 않다
+    (2) argument에 대해 알아야한다
+    (3) express에선, JS처럼 route handler에 event는 없지만, request와 response Object가 존재한다
+        어떤 이름을 써도 상관없지만, 꼭 두 개가 있어야한다
+    (4) request와 response는 express로부터 받은 Object이다
+    (5) request를 받으면 response를 return 해주어야 한다
+    (6) request를 종료시키는 여러 방법들이 있는데 end()는 그 중 하나이다
+    (7) send()역시 request를 종료시킬 수 있는데 메세지를 넣어줄 수 있다
+-----------------------------------------------------------------------------------
+# 3.4 Recap
+    (1) send()는 Text뿐아니라 HTML, json 등도 보낼 수 있다
+-----------------------------------------------------------------------------------
+# 3.5 Middlewares part One
+    (1) middleware는 중간에 있는 소프트웨어이다
+    (2) 모든 controller는 middleware가 될 수 있다
+    (3) controller에서 return 되면 처리가 끝난다
+    (4) controller에는 request, response말고도 argument가 하나 더 존재하는데 그것은 next이다
+    (5) next는 다음 함수를 호출 해 준다
+    (6) 모든 cotroller는 middleware가 될 수 있다
+    (7) app.get("/", gossipModdleware, handleHome);
+        브라우저가 "/" 페이지를 get하려 할 때 express는 gossipMiddleware를 호출 한다
+        gossipMiddleware 역시 controller가 될 수 있지만, gossipMiddleware가 next()를 가지고 있다면,
+        gossipMiddleware는 Middleware가되고 express는 handleHome를 호출한다
+    (8) Middleware는 request에 응답하지 않는다, 그저 request를 지속시켜준다
+-----------------------------------------------------------------------------------
+# 3.6 Middlewares part Two
+    (1) app.use() 는 global middleware를 만들 수 있게 해준다
+        어드 URL에도 작동하는 middleware
+        선언 순서가 영향을 미치기 떄문에 주의해야한다
+            ex) middleware를 위에다 두면, 모든 route에 적용된다
+    (2) middleware안에 조건문을 이용해서 여러 로직을 만들 수 있다
+        ex) 특정 조건을 만족하면 return해서 연결을 종료시키는 등
+-----------------------------------------------------------------------------------

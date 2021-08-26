@@ -74,7 +74,7 @@
     (4) nodemon은 내가 만든 파일이 수정되는걸 감시해주는 패키지이다
         파일이 수정되면 nodemon이 알아서 재시작을 해준다
     (5) npm i nodemon --save-dev 로 설치해준다
-    (6) package.json 파일에 scripts에 node index.js 부분을 nodemon --exec babel-node index.js 로 변경한다
+    (6) package.json 파일에 scripts에 babel-node index.js 부분을 nodemon --exec babel-node index.js 로 변경한다
         --exec 옵션 뒤에 babel-node index.js 를 사용해 실행하게 만든다
     (7) 실행하면 console이 종료되지않고 파일이 수정될 때 마다 실행해준다
 -----------------------------------------------------------------------------------
