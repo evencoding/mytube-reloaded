@@ -16,10 +16,69 @@
                 babel.config.json에는 babel에 추가하고 싶은 plugin을 넣어준다
 -----------------------------------------------------------------------------------
 # 3.8 Servers Recap
-    (1) 
+    (1) 서버는 항상 켜져 있고, 인터넷에 연결 돼 있으면서 request를 listening 하고 있는 컴퓨터다
+    (2) request는 우리가 서버에게 요철하는 것들이다
+    (3) 나의 행동을 listening하고 있는 서버에만 request를 보낼 수 있다
+        서버는 내 컴퓨터 전체를 listen할 수 있기 때문에 PORT를 사용한다
+        PORT는 내 컴퓨터로의 창문이나 문 같은 것이다
+        내가 request를 보낼 때, 해당 port로 request를 보내는 것이다
+    (4) 서버 만들기
+        브라우저가 서버를 호출하면, 서버가 response를 보내준다
+            브라우저가 어디 가는것이 아니라 서버가 보내준 것을 받기만 할 뿐이다
+        1. express 를 import 한다
+        2. express 함수를 호출하면 exprexx application을 바로 사용할 수 있게 return 해 준다
+        3. PORT를 지정해서 lesten 해준다
+            PORT는 어떤 번호를 써도 상관없지만, 4000번을 쓰는 게 백엔드의 관습이다 (높은 번호로 갈수록 비어있을 확률이 크기 때문이다)
+            ex) app.listen(PORT, handleListening);
+                handleListening 은 listening이 시작되면 호출되는 함수이다
+        4. request가 오면 뭘 해야 하는지 서버에게 알려줘야 한다
+            request를 전달하려면 url을 사용해야 한다
+        5. 서버한테 누군가 홈페이지에 접근하면 어떻게 해야하는지 가르쳐준다
+            ex) app.get("/", handleHome)
+                get은 두개의 args를 가지는데 route와 handler이다
+                서버가 응답하지 않으면 브라우저는 계속 기다릴것이기 때문에 return 해줘야 한다  
 -----------------------------------------------------------------------------------
+# 3.9 Controllers Recap
+    (1) controller라고 부를 모든 handler에는 request와 response Object가 존재한다
+        이것들은 express로부터 주어지는 것이다
+        1. response
+            request에 어떻게 응답하느냐는 것으로서 필수다
+            .end() 는 서버와의 연결을 종료한다
+            .send() 는 텍스트,HTML, 등등을 보내줄 수 있다
+            .path는 url이다
+            .method는 서버에 전달방식을 반환한다 ex) get post 등
+    (2) return을 해주면 서버와의 연결을 종료한다
 -----------------------------------------------------------------------------------
+# 3.10 Middleware Recap
+    (1) middleware는 중간(middle)에 있는 software이다
+        request와 response의 춤의 중간
+    (2) 모든 controller 가 middleware 그 자체이다
+        request와 response와 next를 가지고있다
+    (3) next() 함수를 호출하면 express가 다음 함수를 호출한다
+    (4) middleware는 원하는 만큼 쓸 수 있다
+    (5) return해주는 순간 더이상 다음 controller를 호출하지 않기 때문에 주의해야한다
+        따라서 대부분의 경우 마지막 controller가 return 즉, response를 해준다
+            관습적으로 마지막 controller는 response하기 때문에 arg로 next를 주지 않는다
+    (6) middleware를 Component화하는것 같은 기능이 있다
+        app.get 대신 app.use를 사용한다
+            app.use(~~, ~~) 전체에서 사용할 middleware를 넣어준다
+            순서가 중요하기 때문에 주의해야한다 (use아래에 있는 get에서 적용된다)
 -----------------------------------------------------------------------------------
+# 3.11 External Middlewares
+    (1) Morgan 이라는 middleware가 있다
+        morgan은 node.js 용 request logger middleware다
+        직접 만든 middleware와 같은 것이다
+    (2) npm i morgan 으로 설치한다
+    (3) import 해준다 (import morgan from "morgan";)
+    (4) 함수에 설정할 것이 있기 때문에 morgan 함수를 호출한다
+        morgan 함수를 호출하면, 내가 설정한 대로 middleware를 return 해 준다
+    (5) morgan은 좀 더 정교해서 옵션에따라 다양한 정보를 가지고 있다
+    (6) morgan과 같이 설정을 해줘야 하는 middleware들이 있다
+        morgan("dev"); 
+            1. dev는 옵션 중 하나로 GET, path, status code 를 가지고 있다
+            2. combined은 시간, method, http 버전, 사용 중인 브라우저, os 등 많은 걸 보여준다
+            3. common, short, tiny 등이 있다
+    (7) Morgan 역시 next()를 포함하고 있다
 -----------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------
