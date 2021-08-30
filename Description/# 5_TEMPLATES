@@ -41,11 +41,87 @@
         ex) block content
                 h1 Edit Video
 -----------------------------------------------------------------------------------
+# 5.4 Variables to Templates
+    (1) pug파일안에 #{}로 변수를 주고 다른 extends된 pug파일에서 사용할 수 있다
+    (2) pug파일을 rendering하는 것은 컨트롤러이다
+    (3) 따라서 render함수는 2가지의 인수를 받는다
+        1. view의 이름
+        2. 템플릿에 보낼 변수 (오브젝트 형식으로 보낸다)
+            ex) res.render("home", { pageTitle: "Home" })
 -----------------------------------------------------------------------------------
+# 5.5 Recap
+    (1) pug는 HTML을 쓰지않고, 파이썬처럼 깔끔한 코드를 쓸 수 있다
+    (2) express는 이미 파일을 찾도록 설정되어 있기 때문에 import 할 필요없이 render해준다
+    (3) app.set("view engine", "pug"); 로 express에게 pug 템플릿을 사용할것이라고 말해준다
+    (4) app.set("views", process.cwd() + "/src/views"); 로 폴더를 지정해준다
+    (5) 컨트롤러의 render함수에는 두가지 인수가 들어가는데 하나는 파일이름, 두번째는 전해 줄 변수이다
+    (6) controller에서 보낸 변수 또는 자바스크립트는 pug에서 #{}에서 사용할 수 있다
+    (7) pug는 반복하지 않아도 된다는 큰 장점을 가지고 있다
+    (8) include 로 다른 파일에 적힌 내용을 가져올 수 있다
+        ex) include partials/footer.pug
+    (9) extends 로 다른 파일을 상속받을 수 있다
+        ex) extends base.pug
+    (10) 부모 파일에 block을 지정(Empty Block) 해 주면, 상속받은 파일에서 block 을 쓸 수 있다
+        block은 확장한 파일과 커뮤니케이션 할 수 있게 해준다
 -----------------------------------------------------------------------------------
+# 5.6 MVP Styles ( MVP.css )
+    (1) middleware로서 기본적으로 HTML의 element들을 예쁘게 만들어주는 역할을 한다
+    (2) HTML 태그에 몇 가지 기본 스타일을 입혀준다
+    (3) head안에 링크를 추가해준다
+        <link rel="stylesheet" href="https://unpkg.com/mvp.css">
+        물론 pug에서는 pug문법에 맞게 사용
+            link(rel="stylesheet" href="https://unpkg.com/mvp.css")
+    (4) 임시방편일 뿐이지만 상당히 유용하다
 -----------------------------------------------------------------------------------
+# 5.7 Conditionals
+    (1) pug의 conditionals (if, if else 등)
+        태그뒤에 = 가 붙고 변수를 쓰면 #{}가 없이도 변수로 인식된다
+            title #{pageTitle} | Mytube 과 h1=pageTitle 
+            pageTitle은 둘다 변수이지만 다른 문자와 함께 쓰지 않을 경우 후자를 택하여도 무관하다
+            h1은 오직 pageTitle의 값만 갖을 경우
+    (2) 조건문은 파이썬과 비슷한대 elif를 else if 로 써줄 뿐이다
 -----------------------------------------------------------------------------------
+# 5.8 Iteration
+    (1) Iteration은 기본적으로 elements의 list를 보여주는 것이다
+        꼭 array일 필요는 없다 객체이기만 하면 된다
+    (2) 컨트롤러에서 배열 형태의 변수를 만들어 render에 보내줄 수 있다
+    (3) pug파일에서 아래와 같이 사용할 수 있다
+            ul 
+                each video in videos  # 여기서 video는 loop 상의 현재 값이기 때문에 이름이 정해져있지 않다
+                    li=video === li #{video}
+    (4) each 문에 else를 사용할 수 있다
+        array에 값이 존재하지 않을 경우 등
 -----------------------------------------------------------------------------------
+# 5.9 Mixins
+    (1) mixin은 partail이긴 한데 데이터를 받을 수 있는 partial을 말한다
+        똑똑한 partial
+        데이터를 받을 수 있는 일종의 미리 만들어진 HTML block이라 볼 수 있다
+    (2) views 폴더 안에 mixins폴더를 만든 후, video.pug파일을 생성한다
+    (3) partial은 그저 HTML일 뿐이였지만 mixin은 조금 다르다. 뭔가를 해줘야 한다
+    (4) video.pug파일에서
+        mixin [mixin이름](info)     # info 는 pug파일에서 보내주는 변수를 받는 arg
+            로직
+    (5) pug파일에서 불러올 때는 
+        +mixin이름(보낼 변수)
+    (6) 단 사용하기 위해 include mixins/video 즉, mixin파일을 include해 줘야 한다
+    (7) 이렇게 만들어진 mixin은 어디에서든 사용할 수 있고 이게 바로 HTML 코드를 재사용하는 방법이다
+        HTML을 return 해주는 일종의 function과도 같다
 -----------------------------------------------------------------------------------
------------------------------------------------------------------------------------
+# 5.10 Reacp Iteration, Mixins
+    (1) Iteration은 array의 모든 element에 대해 특정 행동을 취할 때 사용한다
+        each x in []
+            ~~
+        else
+            ~~
+        보통 array는 컨트롤러에서 render로 전달받는다 ex) res.render("템플릿 파일이름", {변수:"~~"})
+    (2) 똑같은 형태의 HTML 블록을 여러 페이지에서 보여주고 싶을 때
+        이 때가 바로 mixin을 만들어야 하는 때이다
+    (3) mixin은, 일종의 partails이며, 이미 만들어진 HTML 조각과 같은 것이다
+            바깥에서 정보를 가져오는 역할을 할 수 있다
+    (4) pug파일을 만들고 아래와 같이 mixin을 정의한다
+        mixin 이름(info)
+            ~~
+    (5) 다른 파일에서 mixin을 사용할 때는
+        +mixinName(보내줄 데이터) 로 사용하고, 사용하기 위해서 일반적인 partails과 다르게 mixin파일을 include 해 줘야한다
+        HTML을 return하는 일종의 함수와 같은 역할을 한다
 -----------------------------------------------------------------------------------
