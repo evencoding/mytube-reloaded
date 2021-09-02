@@ -1,0 +1,9 @@
+----------------------------------------------------------------------------
+server.js 서버 연결하기
+Router 만들기
+Controller 만들기
+template 템플릿 만들기
+partial, mixins 추가
+Fake Data를 사용해서 post와 get을 이용한 form을 이해
+mongoDB와 mongoose의 상호작용과 이해
+진짜 데이터를 이용해 CRUD 구현
