@@ -1,0 +1,76 @@
+Quiz
+
+1. What is NodeJS?
+   Is JavaScript outside of the browser.
+
+2. JavaScript comes installed inside of the browser.
+   Yes.
+
+3. Before NodeJS where could we use JavaScript?
+   On the frontend only.
+
+4. NPM is installed along with NodeJS.
+   Yes.
+
+5. What is the purpose of NPM?
+   We use it to share and download JS packages.
+
+6. Where do we put information about our NodeJS project?
+   package.json
+
+7. What does the npm init command do?
+   It helps us create a package.json.
+
+8. In the package.json the ‘author’ field is required for the project to run.
+   No.
+
+9. In the package.json the ‘description’ field is required for the project to run.
+   No.
+
+10. What does the npm run hi command do?
+    It runs the 'hi' script from package.json
+
+11. npm i and npm install are the same command.
+    Yes.
+
+12. How can I install a package named ‘lodash’ from NPM into my project?
+    npm i lodash
+
+13. What is the node_modules folder?
+    Is where the downloaded packages will be saved.
+
+14. The developer has to create the node_module folder manually.
+    No.
+
+15. What is a “dependency” on package.json
+    A package that our project needs to run.
+
+16. Developers have to add dependencies manually to package.json
+    No.
+
+17. After we do npm i express what will happen?
+    'express' will be downloaded to the node_modules folder.
+
+18. What does npm i do compared to npm i express?
+    "npm i" will download the "dependencies" and "devDependencies" in our package.json
+
+19. Do we need to share the node_modules folder when working on a team?
+    No.
+
+20. Is it a good practice to upload the node_modules folder to Github.
+    No.
+
+21. What happens if we delete the node_modules folder accidentally?
+    We can reinstall the packages using "npm i"
+
+22. What does Babel do?
+    It takes sexy code and turns it into compatible code.
+
+23. What is the difference between devDependencies and dependencies.
+    A devDependency is a package that our developer needs to code.
+
+24. devDependencies and dependencies go to the node_modules folder.
+    Yes.
+
+25. How can we move a package from dependencies to devDependencies
+    We can just cut + paste. package.json is just text.
