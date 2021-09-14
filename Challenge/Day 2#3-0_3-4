@@ -1,0 +1,22 @@
+------------------------------------------------------------------------------------
+문제
+    https://codesandbox.io/s/a02blueprint-forked-0ppuu
+------------------------------------------------------------------------------------
+답
+    https://codesandbox.io/s/a02blueprint-forked-ownb9?file=/src/server.js
+------------------------------------------------------------------------------------
+His
+
+------------------------------------------------------------------------------------
+오늘 강의
+    오늘의 강의: 유튜브 클론코딩: From #3.0 to #3.4
+------------------------------------------------------------------------------------
+Code Challenge
+    Using the blueprint(https://codesandbox.io/s/a02blueprint-yn6p5?file=/src/server.js) complete the server.js file and create an Express server.
+    This server should have 4 GET routes.
+    The routes are /, /about, /contact and /login.
+    All the routes should return HTML to the client.
+------------------------------------------------------------------------------------
+정답 해설
+
+------------------------------------------------------------------------------------
