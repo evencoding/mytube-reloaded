@@ -1,0 +1,37 @@
+------------------------------------------------------------------------------------
+문제
+    https://codesandbox.io/s/a03blueprint-forked-uc1z2
+------------------------------------------------------------------------------------
+답
+    https://codesandbox.io/s/a03blueprint-forked-rm9uc?file=/src/server.js
+------------------------------------------------------------------------------------
+His
+
+------------------------------------------------------------------------------------
+오늘 강의
+    오늘의 강의: 유튜브 클론코딩: From #3.5 to #3.10
+------------------------------------------------------------------------------------
+Code Challenge
+    Let's create our own middlewares!
+------------------------------------------------------------------------------------
+Tasks
+    We will create 4 middlewares.
+        URL Logger: This middleware should log the URL that is being visited.
+        Time Logger: This middleware should log the year, month and day of the request.
+        Security Logger: This middleware should log secure if the protocol is https else log insecure.
+        Protector Middleware: This middleware should stop the user if it's trying to go to /protected
+------------------------------------------------------------------------------------
+Hints
+    Express Reference (https://expressjs.com/en/api.html#req)
+    Date (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)
+------------------------------------------------------------------------------------
+Examples
+    For example, an http request to the / URL should log:
+        Path:  /
+        Time: 2021.4.25
+        Insecure ❌
+    If you don't submit the 4 middlewares the assignment will be marked as failed
+------------------------------------------------------------------------------------
+정답 해설
+
+------------------------------------------------------------------------------------

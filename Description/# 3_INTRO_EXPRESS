@@ -61,7 +61,7 @@
 -----------------------------------------------------------------------------------
 # 3.6 Middlewares part Two
     (1) app.use() 는 global middleware를 만들 수 있게 해준다
-        어드 URL에도 작동하는 middleware
+        어느 URL에도 작동하는 middleware
         선언 순서가 영향을 미치기 떄문에 주의해야한다
             ex) middleware를 위에다 두면, 모든 route에 적용된다
     (2) middleware안에 조건문을 이용해서 여러 로직을 만들 수 있다
