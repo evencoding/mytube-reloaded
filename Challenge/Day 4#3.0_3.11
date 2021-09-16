@@ -1,0 +1,46 @@
+Quiz
+
+1. A server is a computer listening for requests.
+    Yes.
+
+2. When we go to google.com is the same as going to google.com/
+    Yes.
+
+3. When we go to google.com with our browser what kind of request are we making?
+    GET request
+
+4. A GET request happens when the user wants to sends data to the server.
+    No.
+
+5. What is the first argument given to our route handlers?
+    The request object
+
+6. What is the second argument given to our route handlers?
+    The response object
+
+7. What can we find inside the request object?
+    Information about the request the user is making.
+
+8. What can we find inside the response object?
+    Functions to respond to the user.
+
+9. What is a route handler?
+    The function called when the user goes to a URL
+
+10. What is a middleware?
+    A function that runs between the request and the response to the user.
+
+11. What is the third argument given to our handlers?
+    The next() function
+
+12. How can a middleware move on to the next handler?
+    Call the next() function
+
+13. How can I make a middleware run for every route?
+    app.use(myMiddleware)
+
+14. How can I make a middleware run only for one route.
+    app.use(myMiddleware)
+
+15. Middlewares will always call the function next()
+    No.
