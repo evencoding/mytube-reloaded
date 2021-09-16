@@ -212,10 +212,66 @@
     (2) 데이터에 대한 구체적인 설정은 정말 정말 중요하다
     (3) 사용자를 위해 input에서도 알려줘야하고, 보안을 위해 database에도 제한을 알려줘야한다
 -----------------------------------------------------------------------------------
+# 6.19 Video Detail
+    (1) documentation에서 mongoDB id에 대해 조사해서 regular expression을 만든다
+        24자 string의 16진수로 이루어지기 때문에 id를 정규식으로 나타내면 [0-9a-f]{24}가 된다
+    (2) watch.pug 파일 수정
+    (3) findById(), findOne()
+        1. findOne 은 내가 보내는 모든 condition을 적용시킨다
+        2. findById 는 id로 찾아낼 수 있는 기능을 지원한다
+    (4) findById() 를 이용해서 DB안에 해당 id와 일치하는 데이터를 가져온다
+    (5) watch template에 video를 전송해준다
 -----------------------------------------------------------------------------------
+# 6.20 Edit Video part One
+    (1) .exec()
+        query를 실행(execute)시키는 것이다
+            내가 만약 execute를 호출하면 mongoose내부에서 promise 가 return 된다
+            await를 사용하고 있기 때문에 현재는 불필요하다
+    (2) 누군가 존재하지 않는 비디오 페이지로 접근 했을 때의 처리를 해준다
+        if문으로 미리 확인하고 존재하지 않는다면 404를 render해준다
+    (3) 404템플릿을 생성한다
+    (4) 업데이트를 위해 getEdit 로직을 처리해준다
+        보통 에러를 먼저 처리한다 (if문안에 에러 처리를 해주고 if문 밖에 정상적인 경우 실행될 것들로 코딩)
+    (5) edit 템플릿에 input을 추가해주고 value를 채워준다
+    (6) hashtags는 DB안에 Array형식으로 되어있기 때문에 value의 모양이 이상하다 format해준다
+        Array.join() 으로 Array를 String형식으로 바꿀 수 있다
 -----------------------------------------------------------------------------------
+# 6.21 Edit Video part Two
+    (1) 업데이트 한 내용을 post request를 보낸다
+    (2) 귀찮은 방법이지만 ID로 DB데이터를 불러와서 하나씩 대입해준 후 await video.save()로 DB에 저장한다
+    (3) hashtags에 "#"가 안붙을 때만 "#"를 붙여주도록 function을 수정한다
+        hashtags.split(",").map((word) => word.startsWith('#') ? word :`#${word}`);
+    (4) 이제 로직을 수정해서 create와 save를 하나의 function에서 할것이다
+        지금까지는 new Video() 방식으로 생성했다
 -----------------------------------------------------------------------------------
+# 6.22 Edit Video part Three
+    (1) Model.findOneAndUpdate() function
+        Model.findByIdAndUpdate() 두 개의 argument가 필요하다
+            1. ID
+            2. 업데이트 할 정보 혹은 내용
+                귀찮게 수정하지 않고 함수 하나로 바꿀 수 있다
+    (2) Model.exist()로 비디오를 따로 찾지않고 존재하는지 확인할 수 있다
+        즉, video object를 받는 대신에 true 혹은 false를 받는다
+        exist()는 id가 아닌 filter를 받는다
+            await Video.exists({ _id: id })
+    (3) Mongoose에도 express처럼 middleware가 있다 (pre, post, hook 도 있다)
 -----------------------------------------------------------------------------------
+# 6.23 Middlewares
+    (1) useFindAndModify: false 를 db.js 파일에 connect함수에 추가한다
+    (2) express에서의 middleware는 request를 중간에서 가로채서 뭔가를 하고 이어서 진행하는 것이다
+    (3) Mongoose에서의 middleware도 같다
+        document에 무슨 일이 생기기 전이나 후에 middleware를 적용할 수 있다
+    (4) 생김새
+        모델 파일에서 작성
+        schema.pre('save', async function () {
+
+        })
+        function안에 this라는 키워드가 있다
+            이 this는 내가 저장하고자 하는 문서를 가리킨다
+    (5) middleware는 무조건 model 이 생성되기 전에 만들어야 한다
+    (6) middleware안에서 document를 수정할 수 있다
+        save 되기 전에 실행되기 때문
+    (7) 이를 이용해서 hashtag 로직을 미들웨어에서 처리해준다
 -----------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------
