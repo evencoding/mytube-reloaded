@@ -273,7 +273,29 @@
         save 되기 전에 실행되기 때문
     (7) 이를 이용해서 hashtag 로직을 미들웨어에서 처리해준다
 -----------------------------------------------------------------------------------
+# 6.24 Statics
+    (1) 미들웨어로 어떤 이벤트가 발생하기 전에 중간에 가로채서 문서를 수정 할 수 있었다
+    (2) findByIdAndUpdate를 위한 pre middleware는 없다
+    (3) 하지만 findOneAndUpdate를 위한 pre middleware는 존재한다
+        다만 findOneAndUpdate는 save hook을 호출하진 않는다
+    (4) 모델에서 해시태그를 처리하는 함수를 만들어주고 export한 후에 컨트롤러에서 import해서 사용해도 동일한 효과를 볼 수 있다
+    (5) Static
+        videoSchema.static("formatHashtags", function (hashtags) {
+            return hashtags
+                .split(",")
+                .map((word) => (word.startsWith("#") ? word : `#${word}`));
+        });
+            이러한 형태로 Static으로 지정해두면 편하게 사용할 수 있다
+        ex) hashtags: Video.formatHashtags(hashtags)
 -----------------------------------------------------------------------------------
+# 6.25 Delete Video
+    (1) video 를 삭제한다
+        1. watch 페이지로 가서 Delete Video를 a태그로 작성
+            이번에는 아무것도 post하지 않는다. 단순히 이 URL을 방문할 뿐이다
+            URL에 방문하면 video를 삭제한다
+        2. 이 delete function의 라우터와 컨트롤러를 만든다
+        3. Model.findByIdAndDelete() 를 사용해서 video를 db에서 삭제한다
+    (2) delete와 remove의 차이점
 -----------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------
