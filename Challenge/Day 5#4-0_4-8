@@ -1,0 +1,39 @@
+Routes
+------------------------------------------------------------------------------------
+문제
+    https://codesandbox.io/s/express-blueprint-forked-n6r6i?file=/src/index.js
+------------------------------------------------------------------------------------
+답
+    https://codesandbox.io/s/express-blueprint-forked-mdxko?file=/src/index.js
+------------------------------------------------------------------------------------
+His
+
+------------------------------------------------------------------------------------
+오늘 강의
+    오늘의 강의: 유튜브 클론코딩: From #4.0 to #4.8
+------------------------------------------------------------------------------------
+Tasks
+    Create 3 routers: globalRouter, storyRouter and userRouter
+    Inside of the routers create the following GET routes:
+        /
+        /trending
+        /new
+        /join
+        /login
+        /users
+        /users/:id
+        /users/edit-profile
+        /stories/:id
+        /stories/:id/edit
+        /stories/:id/delete
+    Distribute these routes between the globalRouter, storyRouter and userRouter
+
+    All routes should have a controller
+------------------------------------------------------------------------------------
+Hints
+    Router (https://expressjs.com/en/4x/api.html#router)
+    route.param (https://expressjs.com/en/4x/api.html#router.param)
+------------------------------------------------------------------------------------
+정답 해설
+
+------------------------------------------------------------------------------------
