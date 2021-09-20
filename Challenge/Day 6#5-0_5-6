@@ -1,0 +1,29 @@
+Routes
+------------------------------------------------------------------------------------
+문제
+    https://codesandbox.io/s/a06blueprint-forked-i2ir2
+------------------------------------------------------------------------------------
+답
+    https://codesandbox.io/s/a06blueprint-forked-i2ir2?file=/src/index.js
+------------------------------------------------------------------------------------
+His
+
+------------------------------------------------------------------------------------
+오늘 강의
+    오늘의 강의: 유튜브 클론코딩: From #5.0 to #5.6
+------------------------------------------------------------------------------------
+Tasks
+    -Replace all the res.send in the controllers with res.render().
+    -Create .pug templates for each controller.
+    -All templates should extend from a layout.pug.
+    -Create partials for footer, head and header.
+    -Your templates should get a pageTitle variable from the controllers.
+    -Add default styles using MVP.css.
+        (Pug is already configured on the blueprint)
+------------------------------------------------------------------------------------
+Hints
+    pug's documentation (https://pugjs.org/language/inheritance.html)
+------------------------------------------------------------------------------------
+정답 해설
+
+------------------------------------------------------------------------------------
