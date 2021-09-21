@@ -1,0 +1,46 @@
+Quiz
+
+1. A router helps us divide URLs in small ‘mini-applications’
+   Yes.
+
+2. How can I make a router called productsRouter?
+   const productsRouter = express.Router()
+
+3. How can I use the productsRouter for the /products URL prefix?
+   app.use("/products", productsRouter)
+
+4. How can I create a get router inside of productsRouter for the /products URL?
+   productsRouter.get("/", fn)
+
+5. If I have export default B on A.js I can import B using
+   import Z from "./A.js"
+
+6. If I have export B on A.js I can import B using
+   import {B} from "./A.js"
+
+7. A .js file can have more than one default export.
+   No.
+
+8. A .js file can have many export const ....
+   Yes.
+
+9. On this URL: /products/:category/:id what are the parameters?
+   id, category
+
+10. How can I make my URL have a ‘id’ parameter?
+    /products/:id
+
+11. On my controller, how can I access id on this URL /products/:id
+    req.params.id
+
+12. To return HTML to the user we need to use templates, it's the only option.
+    No.
+
+13. Pug is the only template engine we can use with Express.
+    No.
+
+14. A template engine takes sexy code and turns it into normal HTML.
+    Yes.
+
+15. What is the name of the folder where Express looks for the templates by default?
+    '/views'
