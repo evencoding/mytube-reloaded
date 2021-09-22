@@ -1,0 +1,34 @@
+FakeDB I!
+------------------------------------------------------------------------------------
+문제
+    https://codesandbox.io/s/express-controller-blueprint-forked-iew06
+------------------------------------------------------------------------------------
+답
+    https://codesandbox.io/s/express-controller-blueprint-forked-lt99x?file=/src/index.js
+------------------------------------------------------------------------------------
+His
+    
+------------------------------------------------------------------------------------
+오늘 강의
+    오늘의 강의: 유튜브 클론코딩: From #5.7 to #6.6
+------------------------------------------------------------------------------------
+Tasks
+    On today's bluprint, you will find 3 functions on the movieController.jsfile. Your task today is to complete them!
+        -home should list all the movies.
+        -movieDetail should show a movie based on the :id
+        -filterMovie should filter for a movies based on the rating or the year
+    There is a db.js file already made for you, you don't need to touch it. The db.js exports the following functions:
+        -getMovieById finds a movie with a provided ID (i.e: getMovieById(123))
+        -getMovies returns an array of all the movies on the DB (i.e: getMovies())
+        -getMovieByMinimumRating returns an array of the movies with a rating bigger than X (i.e: getMovieByMinimumRating(5))
+        -getMovieByMinimumYear returns an array of the movies published after a year X (i.e: getMovieByMinimumYear(2012))
+
+    You also have to complete the movieRouter.js file. Make three URLS: / /:id and /filter
+
+    The views folder is empty. Make partials, layouts and mixins to show the movies.
+
+    This is how the final outcome should work:
+------------------------------------------------------------------------------------
+정답 해설
+
+------------------------------------------------------------------------------------
