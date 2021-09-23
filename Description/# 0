@@ -7,3 +7,5 @@ partial, mixins 추가
 Fake Data를 사용해서 post와 get을 이용한 form을 이해
 mongoDB와 mongoose의 상호작용과 이해
 진짜 데이터를 이용해 CRUD 구현
+
+alt + shift + i 로 여러 곳에 커서를 만들 수 있음

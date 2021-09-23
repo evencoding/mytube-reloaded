@@ -1,0 +1,26 @@
+POST Time!
+------------------------------------------------------------------------------------
+문제
+    https://codesandbox.io/s/a09blueprint-forked-595xo
+------------------------------------------------------------------------------------
+답
+    https://codesandbox.io/s/a09blueprint-forked-595xo?file=/src/index.js
+------------------------------------------------------------------------------------
+His
+    
+------------------------------------------------------------------------------------
+오늘 강의
+    오늘의 강의: 유튜브 클론코딩: From #6.0 to #6.6
+------------------------------------------------------------------------------------
+Tasks
+    Today we are gonna continue yesterday's movie project, today we are going to upload a movie.
+        -On the [movieController] file, make a controller or controllers to upload a movie.
+        -This means you need to handle [GET] and [POST] requests.
+        -You will also have to create an [/add] route.
+        -To add a movie to the database, there is an exported function called [addMovie], this function takes one argument, this argument should be an object.
+        -The object should contain [title (string)], [synopsis(string)], [genres (array of strings)]
+        -Movies have an array of 'genres', make sure you render them using [each in] in Pug
+------------------------------------------------------------------------------------
+정답 해설
+
+------------------------------------------------------------------------------------
