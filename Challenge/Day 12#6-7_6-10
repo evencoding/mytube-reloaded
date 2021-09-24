@@ -1,0 +1,25 @@
+Mongo I
+------------------------------------------------------------------------------------
+문제
+    https://codesandbox.io/s/a10blueprint-forked-lrd7x
+------------------------------------------------------------------------------------
+답
+    https://codesandbox.io/s/a10blueprint-forked-kxgrs?file=/src/models/Movie.js
+------------------------------------------------------------------------------------
+His
+    
+------------------------------------------------------------------------------------
+오늘 강의
+    오늘의 강의: 유튜브 클론코딩: From #6.7 to #6.10
+------------------------------------------------------------------------------------
+Tasks
+    Today is friday, so this assignment will be short! 어늘은 맛있는 삼겹살을 즐겨주세요!
+        -All we have to do today is to create a Movie model.
+        -Complete the models/Movie.js file.
+        -The Movie model should have a title, summary, year, rating, genres
+        -genres should be an array of strings.
+        -All the fields are required.
+------------------------------------------------------------------------------------
+정답 해설
+
+------------------------------------------------------------------------------------
