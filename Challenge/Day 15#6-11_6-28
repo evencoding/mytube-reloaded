@@ -1,0 +1,42 @@
+Mongo II
+------------------------------------------------------------------------------------
+문제
+    https://codesandbox.io/s/a11blueprint-forked-38duo
+------------------------------------------------------------------------------------
+답
+    하던거 : https://codesandbox.io/s/a11blueprint-forked-ucd5f?file=/src/movieController.js
+    두번째 : https://codesandbox.io/s/a11blueprint-forked-38duo?file=/src/movieController.js
+------------------------------------------------------------------------------------
+His
+    
+------------------------------------------------------------------------------------
+오늘 강의
+    오늘의 강의: 유튜브 클론코딩: From #6.11 to #6.28
+------------------------------------------------------------------------------------
+Tasks
+    With the provided blueprint create a CRUD (Create, Read, Update, Delete) using MongoDB.
+    These are the URLs (+ Controllers) you need to create:
+        / See all movies (GET)
+        /upload See a form to create a movie (GET) and save the movie to the DB (POST)
+        /movies/:id See a Movie (GET)
+        /movies/:id/edit Edit a Movie (POST)
+        /movies/:id/delete Delete a Movie (GET)
+        /search Search movies by title (GET)
+------------------------------------------------------------------------------------
+Requirements
+    Use mixins, layouts and partials with Pug.
+    Use async/await on your controllers.
+    Use mvp.css
+------------------------------------------------------------------------------------
+🚧🚧🚧🚧🚧🚧
+Before You Start
+On /src/models/Movie.js please change the line 11 of the code.
+
+Change null for your username.
+
+We do this so we can share the same DB.
+🚧🚧🚧🚧🚧🚧
+------------------------------------------------------------------------------------
+정답 해설
+
+------------------------------------------------------------------------------------
