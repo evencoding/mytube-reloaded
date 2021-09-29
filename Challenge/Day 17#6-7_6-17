@@ -1,0 +1,37 @@
+Quiz
+
+1. What is a Document Database?
+   A DB where we store data on JSON-like documents.
+
+2. What is the job of Mongoose?
+   We use Mongoose to talk to Mongo from JS.
+
+3. If we use Mongoose we don’t need MongoDB.
+   False
+
+4. What is a Schema?
+   The shape of the data that will go to the DB.
+
+5. On the Schema we write the data we want to put on the DB.
+   No.
+
+6. What is a [callback] in JS?
+   A function to be executed after another function has finished executing.
+
+7. To use [await] we must first make the function async
+   True
+
+8. With try/catch, when is the ‘catch’ code executed?
+   When there is an error on the 'try' block
+
+9. We must always call [res.render] with [return] to render a template.
+   No, return is not required.
+
+10. After calling [res.render] we can call [res.send] and it will work.
+    False
+
+11. To save a new video to the database we use [new Video].
+    No.
+
+12. What is the difference between [new Video] and [Video.create]?
+    new Video creates a JS object. Video.create saves a new video to the DB.
