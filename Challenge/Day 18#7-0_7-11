@@ -1,0 +1,42 @@
+Users
+------------------------------------------------------------------------------------
+문제
+    https://codesandbox.io/s/a13blueprint-forked-ytsxd
+------------------------------------------------------------------------------------
+답
+    https://codesandbox.io/s/a13blueprint-forked-04c41?file=/src/models/User.js
+------------------------------------------------------------------------------------
+His
+    
+------------------------------------------------------------------------------------
+오늘 강의
+    오늘의 강의: 유튜브 클론코딩: From #7.0 to #7.11
+    Now is time to practice everything you know! On today's task you will need to use everything that we have learned so far.
+------------------------------------------------------------------------------------
+Tasks
+With the provided blueprint build a username / password authentication system! These are the routes you need to create:
+
+    /join: This route should render a form to create an account (GET, POST).
+    /login: This route should render a form to log in (GET, POST).
+    /: This route should check if you are logged in or not, if you are it should show you your profile, if you are not it should send you to /login.
+    You will need to complete the User model. (username, name, password).
+    You will need to complete the userController and userRouter.
+    You will also need to make the .pug files.
+    Passwords must be securely stored, use bcrypt.
+    username must be unique
+    The forms should display errors (wrong password, wrong password confirmation, username already taken)
+    express-session is already configured.
+    mvp.css is already configured.
+------------------------------------------------------------------------------------
+🚧🚧🚧🚧🚧🚧
+Before You Start
+On /src/models/User.js please change the line 11 of the code.
+
+Change null for your username.
+
+We do this so we can share the same DB.
+🚧🚧🚧🚧🚧🚧
+------------------------------------------------------------------------------------
+정답 해설
+
+------------------------------------------------------------------------------------
