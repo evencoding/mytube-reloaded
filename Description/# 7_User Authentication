@@ -125,8 +125,43 @@
     (6) user정보도 session에 들어있기 때문에 locals에 넘겨줘서 템플릿과 공유
 -----------------------------------------------------------------------------------
 # 7.11 Recap
-    (1) 
+    (1) 첫번째로, session middleware를 생성
+        express-session이라는 module로부터 주어진 것
+        브라우저가 나의 backend와 상호작용할 때 마다 session이라는 middleware가 브라우저에 cookie를 전송
+    (2) cookie는 backend가 브라우저에 주는 정보인데, cookie에는 정해진 규칙이 있기 떄문에,
+         내가 매번 bakcend에 request를 할 때 브라우저는 알아서 그 request에 cookie를 덧붙이게 된다
+         어떤 정보든 넣을 수 있다
+         이번에 넣은 것은 session ID 이다
+    (3) cookie와 session ID 는 다르다
+        cookie는 단지 정보를 주고 받는 방법이고,
+        session ID는 cookie에 저장된다
+    (4) backend는 생성된 모든 session ID를 관리하는 곳이다
+    (5) Session store는 내가 session을 저장하는 곳이다
+        내가 매번 코드를 저장하면 서버가 재시작되는데 session store는 사라진다
+        cookie store를 MongoDB와 연결해서 이부분을 고친다
+    (6) locals는 내가 뭐든 할 수 있는 Object이다
+        나의 template이 locals object에 접근할 수 있다
 -----------------------------------------------------------------------------------
+# 7.12 MongoStore
+    (1) session id 는 쿠키에 저장하지만, 데이터 자체는 서버에 저장된다
+    (2) 서버에 저장되는 default session storage는 MemoryStore이고, 실제 사용하기 위해 있는 것은 아니다
+    (3) 이번 프로젝트에서는 connect-mongo를 사용할 것이다
+        connect-mongo는 세션을 MongoDB에 저장한다
+        따라서 서버가 재시작하더라도 session은 db안에 저장되있기 때문에 누군가 로그인 되어있어도 잊어버리지 않는다
+    (4) npm install connect-mongo 로 설치
+    (5) 그 후 서버에서 MongoStore를 import 한 후 사용한다.
+    (6) 이제 MongoStore.create를 해야하는데, 나의 Mongo database의 URL을 가지고 있는 
+        configuration object를 만들어야 한다
+    (7) session middleware는 store라는 option 하나가 있다.
+        다시말해, default로 설정된 것과는 다른 store를 설정할 수 있다
+        내가 필요한 단 한가지 option은 내가 사용할 MongoDB로의 url이다
+    (8) 이걸로 session들은 MongoDB database에 저장된다
+        db에 sessions 이라는 collection이 생긴다
+    (9) session을 만든다
+        세션은 브라우저가 나의 backend를 방문할 때 만들어진다
+
+    MongoStore.create가 없으면 세션이 서버의 메모리에 저장되기 때문에 서버를 재시작하면 모든 세션이 사라진다
+    세션을 database에 저장하도록 만들었다
 -----------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------
