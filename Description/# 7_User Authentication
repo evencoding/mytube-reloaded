@@ -163,14 +163,208 @@
     MongoStore.create가 없으면 세션이 서버의 메모리에 저장되기 때문에 서버를 재시작하면 모든 세션이 사라진다
     세션을 database에 저장하도록 만들었다
 -----------------------------------------------------------------------------------
+# 7.13 Uninitialized Sessions
+    (1) resave와 saveUninitialized의 차이점과 이것을 false로 바꾸는 방법
+        session authenrication(인증)을 사용하면서 생길 수 도 있는 문제에 대해서 배울 수 있다
+    (2) 만약 봇이 나의 웹사이트를 방문하거나, 로그인하지 않고 구경만 하려는 사용자들이 방문했을 때
+        지금은 모든 방문자에 대해 쿠키랑 session을 만들고, 이 session을 DB에 모두 저장하는데, 좋은 생각이라고 할 수 없다
+        로그인한 사용자의 session만 저장하는게 좋을수도 있다
+    (3) 모든 방문자에 대해서 쿠키를 주지 않을거다
+        로그인한 사용자에게만 쿠키를 줄것이다
+        resave와 saveUninitialized 를 false로 설정한다
+            브라우저에서 쿠키를 지운다
+    (4) db에서 모든 세션을 지운다
+    (5) saveUninitialized
+            세션이 새로 만들어지고 수정된 적이 없을 때 uninitialized 이다
+            세션은 한 곳에서만 수정될 수 있는데, req.session이 그렇다
+        로그인 시에 req.session을 수정하고 있기 때문에 backend가 로그인한 사용자에게만 쿠키를 주도록 설정됐다
+        backend가 DB에 저장하는게 session 인증에서의 문제점 중 하나인데, 이걸 위한 해결책으로 token authentication이 있다
+        예를 들어 iOS나 안드로이드 앱을 만들 때 이것들은 쿠키를 갖지 않기 때문에 token을 사용한다
+    (6) secret 과 url 부분은 코드에서 보이면 안된다.
+        왜냐면 이 웹사이트를 서버에 배포 할 때, 이 DB URL을 그냥 두면 안된다
+            누군가가 DB URL을 알고 연결할 수 있기 때문에 위험
 -----------------------------------------------------------------------------------
+# 7.14 Expiration and Secrets
+    (1) 쿠키의 프로퍼티에 대하여
+    (2) Name, Value, Domain, Path, Expires / Max-Age, Size, HttpOnly, Secure, SameSite, Priority 등
+    (3) secret
+        secret 은 내가 쿠키에 sign 할 때 사용하는 string이다
+        쿠키에 sign하는 이유는 내 backend가 쿠키를 줬다는걸 보여주기 위함이다
+        session hijack(납치)라는 공격유형이 있기 때문에
+            누군가 나의 쿠키를 훔쳐서 마치 나인 척 할 수 있기 때문에 이걸 잘 보호해야 한다
+        secret의 string을 가지고 쿠키를 sign하고 내가 만든 것임을 증명할 수 있다
+    (4) Domain
+        Domain 은 이 쿠키를 만든 backend가 누구인지 알려준다
+        브라우저는 Domain에 따라 쿠키를 저장하도록 되어있고, Domain에 있는 backend로만 전송된다
+        즉, 쿠키가 어디에서 왔는지, 어디로 가야하는지 알려주는 것이다
+    (5) Expires
+        Expires를 보면 Session이라고 적혀있다면 그 쿠키는 만료 날짜가 명시되지 않은것이다
+        만약 내가 만료날짜를 지정하지 않으면 session cookie로 설정되고,
+        사용자가 닫으면 session cookie는 끝나게 된다.
+    (6) Max-Age
+        Max-Age는 말그대로 언제 세션이 만료되는지 알려준다
+        cookie: {maxAge: } 로 값을 바꿀 수 있다. 값은 1/1000초 단위
+    (7) session 안의 DB URL을 보호해야 한다
+        이걸 위해 environment file(환경변수)을 만든다
+        .env 파일을 만들고 gitignore에 넣어준다
+        .env에는 코드에 들어가면 안되는 값들을 추가한다 (API key나 비밀로 해야하는 url 등)
+            관습적으로 env 파일에 추가하는 모든 건 대문자로 적어야 함
+        process.env. 로 접근한다
 -----------------------------------------------------------------------------------
+# 7.15 Expiration and Secrets
+    (1) 어떻게 DB URL을 env에서 읽을 수 있는지
+    (2) 이번 프로젝트에서 사용할 것은 dotenv라고 불리는 것이다
+        이 Pacakge 가 하는 일은 나의 env 파일을 읽고 각각의 변수들을 process.env 안에 넣는다
+    (3) npm i dotenv 로 설치한다
+    (4) require('dotenv').config() 로 사용한다
+
+    dotenv는 파일을 읽고 env에 추가를 해준다
+    require('dotenv')를 가장 먼저 실행하지 않으면 다른 파일에서 사용할 수 없기 때문에,
+    가장 먼저 실행하는 파일의 가장 위에 넣어준다
+        이번 init.js에서부터 시작하기 때문에 init.js 의 가장 위에 넣어준다
+    require로 사용하려면 필요한 모든 파일에 require을 추가해 줘야한다
+    하지만 번거롭기 때문에 require로 import 하는 부분을 import 방식으로 바꾼다
+        import "dotenv/config";
+    .env 파일은 src 폴더 밖에
+
+    이걸로 중요한 정보를 숨길 수 있다
 -----------------------------------------------------------------------------------
+# 7.16 Github Login part One
+    (1) 웹 사이트에 소셜 로그인을 구현하는 방법
+    (2) 이번 프로젝트에서는 깃헙 로그인을 적용시킨다
+    (3) 흐름
+        1. 사용자를 깃헙으로 보낸다
+            사용자는 깃헙으로 이메일이랑 패스워드 등등을 넣게 된다
+            그리고 나아게 정보를 공유하는 것을 승인하게 된다
+        2. 그러면 깃헙은 사용자를 우리 웹사이트로 돌려보낸다
+        3. 깃헙은 사용자를 token과 함께 redirect 시킨다
+            그러면 내가 그 token으로 사용자의 정보를 받아들인다
+    (4) Github Application이 있어야 한다
+        1. Github 사이트에서 Developer settings 로 들어감
+        2. OAuth Apps로 들어간다
+        3. New OAuth App을 클릭
+            Authorization callback URL 에는 아무거나 넣어줘도 되는데, 코드에서 나중에 사용해야 하기 때문에 기억할 수 있어야한다
+    (5) 순서
+        1. 사용자들은 깃헙 신원을 요철하기 위해 redirect 된다
+            login.pug 에서 a태그로 (https://github.com/login/oauth/authorize)를 추가
+            Parameters 를 보내줘야 한다
+            그 중 하나는 Client ID
+            URL에 Client ID를 보낸다
+                https://github.com/login/oauth/authorize?client_id=~~
+        2. 이걸 클릭해서 Authorize한다
+            클릭하면 내 사이트로 redirect하게 되는데, 나는 public 데이터보다 더 많은 정보를 받고 싶다
+            따라서 scope에 뭔가를 전송한다
+            scope에는 내가 사용자에 대해 어디까지 알 수 있는지를 적는다
+            allow_signup 은 사용자가 깃헙 계정이 없다면 계정을 생성할 수 있게 할지, 이미 계정이 있는 사람만 하게 할지를 결정
+                allow_signup=false를 주면 계정 생성이 불가능하다
 -----------------------------------------------------------------------------------
+# 7.17 Github Login part Two
+https://docs.github.com/en/developers/apps/building-oauth-apps/scopes-for-oauth-apps
+    (1) scope
+        scope는 유저에게서 얼마나 많이 정보를 읽어내고 어떤 정보를 가져올 것에 대한 것이다
+        따라서 필요한 정보만 요청하도록 해야한다
+            url에 scope=user:email 을 추가하면 사용자의 email에 접근이 가능하다
+            url에 scope=user 를 추가하면 읽고 쓰는 등 모든 접근이 가능하다
+        내가 어떤 정보를 요청하느냐에 따라 user는 승인을 받게 되고, Github는 나에게 정보에 접근할 수 있도록 토큰을 준다
+        필요한 정보들은 url에 스페이스로 나눠서 요청할 수 있다
+    (2) 한가지 문제점은 긴 URL을 계속해서 변경해줘야 한단 것이다
+        Github로 계속되는 똑같은 URL을 원한다고 했을 때, Join에 넣는다고 치면 url이 들어있는 a태그를 전부 복붙해야한다
+        scope를 하나 바꾼다 해도 또 바꿔줘야 하고, 클라이언트 ID가 바뀌면 다른 template에도 바꿔줘야한다
+        따라서 한 군데에 전부 모아두는게 낫다
+    (3) a태그를 클릭하면 /users/github/start 로 보내주고, 라우터와 컨트롤러를 만든다
+    (4) 컨트롤러에서 baseUrl과 config 오브젝트로 url을 조각낸 후 인코딩해서 URL 상에서도 동작할 수 있게 한다
+        UrlSearchParams라고 하는 utility를 사용한다
+            new URLSearchParams(config).toString() 으로 URL이 인코딩 되어 나오는 것을 볼 수 있다
+        이렇게 나온 것들을 전부 URL에 집어 넣는다
+            const finalUrl = `${baseUrl}?${params}`;
+    (5) 한 가지 더 해야 할 건 Authorize를 클릭할 수 있게 만드는 것이다
+        Authorize를 클릭하면 Authorization callback URL 로 redirect 시켜준다
+        나에게 없는 Authorization callback URL 과 controller를 만들어 준다
+    (6) 유저가 Authorize를 클릭한 순간부터는 이미 Github에 "예"라고 한 걸 알기 때문에 또 대답할 필요가 없다
+        따라서 바로 Authorization callback URL로 redirect 된다
+    (7) 이제 user를 code와 함께 돌려 보낸다
 -----------------------------------------------------------------------------------
+# 7.18 Github Login part Three
+    (1) Github에서 받은 토큰을 Access 토큰으로 바꿔줘야 한다
+        POST https://github.com/login/oauth/access_token
+        client_id,client_secret,code 등과 같은 parameter 들과 함께 POST 요청을 보내야 한다
+        client_id를 .env파일에 둠
+            비밀이기 때문이 아닌 값을 한 장소에 넣음으로서 어디서든지 값을 사용할 수 있게 하기 위함
+    (2) client_secret이 필요하다
+        오로지 백엔드에만 존재해야하는 secret
+        따라사 .env파일에 추가한다
+    (3) finishGithubLogin 컨트롤러에서 config 변수에 client_id, client_secret, code 를 넣는다
+    (4) 이것들을 URL 로 다시 집어넣어야 한다
+    (5) fetch 를 이용해서 데이터를 받아온다
+        fetch 는 브라우저에서는 사용할 수 있지만 NodeJS 에는 포함되어 있지 않다
 -----------------------------------------------------------------------------------
+# 7.19 Github Login part Four
+    (1) npm i node-fetch 로 설치해서 NodeJS에서도 fetch를 사용할 수 있게 한다
+    (2) access_token을 갖고 API에 접근한다
+        이제 access_token을 가지고 user의 정보를 얻을 수 있다
+    여기까지 과정
+        1. Github에 user를 보내고, user가 Github에서 "예"라고 하면 Github는 코드를 줄 것이다.
+        2. 그 코드를 가지고 access_token으로 바꾼다
+        3. 그럼 access_token으로 Github API를 사용해 user 정보를 가져온다
+    (3) JSON에 있는 access_token을 가져온다
+    (4) 인증을 위한 access_token을 보내줘야한다
+    (5) fetch로 Github API를 이용해서 user의 정보를 받아왔는데 email값이 null이다
+        privite이기 때문에
+        따라서 email이 null값일 때를 대비해서 또 다른 request를 만들어야 한다
 -----------------------------------------------------------------------------------
+# 7.20 Github Login part Five
+    (1) 전 강의에서 Github이 준 코드를 가지고 access_token으로 교환했다.
+        access_token은 Github API URL을 fetch하는데 사용되었다.
+        그렇게해서 얻은 건 user의 public 정보다.
+            scope로 요청했기 떄문에 가능했던 것
+    (2) user의 email을 가져온다
+        public email이 아니기 때문에 user의 email을 요철하기 위해 똑같은 access_token을 써야한다
+    (3) 이제 email이 verified이면서 primary인 것들을 찾는다 (find함수를 이용)
+        없으면 login페이지로 redirect시킨다 (나중에는 에러 norification을 보여주면서 redirect 시킬것)
 -----------------------------------------------------------------------------------
+# 7.21 Github Login part Six
+    (1) 로그인 규칙을 어떻게 만들 것인가
 -----------------------------------------------------------------------------------
+# 7.22 Log Out
+    (1) 이전 강의에서는 Github 프로필의 email이 데이터베이스에 있을 떄 유저가 로그인 할 수 있게 했다.
+    (2) 다음 섹션에서 유저 아바타를 다룰것이기 때문에 user schema에 avatarUrl을 추가한다
+    (3) 로그아웃을 로그아웃 컨트롤러에서 세션을 파괴한다
+        req.session.destroy();
 -----------------------------------------------------------------------------------
+# 7.23 Recap
+    (1) Github로 로그인 하기
+        1. /user/github/start로 가는 링크를 만들었다
+            route를 생성하기 위함
+        2. startGithubLogin 컨트롤러를 만들었다
+            몇몇 configuration parameter를 가지고 URL을 만들기 위함
+            유저를 URL로 즉 Github로 보내준다
+            URL을 설정하는 이유는 URL이 Github에게 뭔가를 알려줄 수 있어서이다
+                ex) client_id (Github이 어떤 어플에 로그인하는지 안다)
+                    allow_signup (어플에 어떤 종류의 user를 허용 시킬건지 설정할 수 있다)
+                    scope (user로 뭘 할건지 설명한다) 원하는 어떤 scope도 사용할 수 있지만, 해당 scope로 요창해야한다
+        3. 유저가 이러한 데이터들을 공유하는데 동의를 하면 나의 웹사이트로 되돌아온다
+            /github/finish 라는 URL로 돌려보내게 했다 (Authorization callback URL) -> finishGithubLogin 이라는 function을 호출
+        4. finishGithubLogin 컨트롤러를 만들었다
+            먼저, user가 Github에서 돌아오면 /github/finish?code=xxxx가 덧붙여진 내용을 받는다
+                code는 user가 승인했다고 Github가 알려주는 것이다
+            baseUrl과 몇몇 parameter들을 받고, parameter들을 URL의 parameter string으로 바꿔준다
+            finalUrl을 만들어서 URL로 POST request를 보낸다 (URL에는 Github가 준 code가 담겨져 있다)
+            모든 것이 올바르다면, Github는 나에게 access_token을 준다
+                access_token은 Github API와 상호작용 할 때 사용한다
+            user 프로필을 받기 위해 요청한다
+                fetch로 URL에 access_token을 보내면 user데이터를 받을 수 있다 
+                    awati (await fetch()).json();
+                가끔은 user들이 email을 보여주지 않을 때도 있다
+                    따라서 email API에게도 요처을 보내줘야한다
+                    위와 같은 방식으로 요청 하면 email array를 받을 수 있다
+                    그 eamil array 중에서 primary이면서 verified 된 email을 찾는다
+                        찾지 못하면 user를 로그인 페이지로 돌아가게 했다 (나중에는 notification을 설정해 줄것 {유저에게 Github로 로그인 했다는 걸 알려주기 위해})
+                        찾는다면 DB 에서 해당 email을 찾는다
+                            DB에서 해상 email을 찾는다면 유저를 로그인 시킨다
+                            찾지 못하면 그 email로 user를 만든다
+        5. 이것들이 전부 실행되면 쿠키가 생긴다
+        6. 로그아웃 기능은 간단하다
+            컨트롤러에서 세션을 파괴해주면 된다
+
+        카카오, 트위터 등 이와 비슷한 과정으로 가능하다
 -----------------------------------------------------------------------------------
