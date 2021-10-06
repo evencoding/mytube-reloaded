@@ -1,0 +1,65 @@
+File Uploads
+------------------------------------------------------------------------------------
+문제
+    https://codesandbox.io/s/a15blueprint-forked-iq7xz
+------------------------------------------------------------------------------------
+답
+    https://codesandbox.io/s/a15blueprint-forked-so8l3?file=/src/controllers/uploadController.js
+------------------------------------------------------------------------------------
+His
+    
+------------------------------------------------------------------------------------
+오늘 강의
+    오늘의 강의: 유튜브 클론코딩: From #8.6 to #8.9
+------------------------------------------------------------------------------------
+Tasks
+
+    In these two days we are going to build a TXT to HTML application.
+
+    The user will upload a .txt file
+
+    With the help of multer and fs we will open that file and display the content on the website.
+------------------------------------------------------------------------------------
+Steps
+
+    Make two routes: / and /read.
+
+    / should render a form to upload a file.
+
+    The form should POST to /read.
+
+    Configure multer to accept .txt files on POST to /read
+
+    On the /read POST handler, open the file using fs and display the content to the user.
+------------------------------------------------------------------------------------
+Hints
+    fs.readFile (https://nodejs.org/docs/latest-v9.x/api/fs.html#fs_fs_readfile_path_options_callback)
+------------------------------------------------------------------------------------
+Extra Points
+
+    On the / route display the names of all the files that have been uploaded. (Use fs.readDir (https://nodejs.org/api/fs.html#fs_fs_readdir_path_options_callback) to see the contents of a directory)
+    
+    Each file name should have a link to /read/:id and there display the content of the file.
+------------------------------------------------------------------------------------
+정답 해설
+
+------------------------------------------------------------------------------------
+이 이틀 동안 우리는 TXT to HTML 애플리케이션을 구축할 것입니다.
+
+사용자가 .txt 파일을 업로드합니다.
+---------------------------------------------------------------------------------
+[multer]와 [fs]의 도움을 받아 해당 파일을 열고 콘텐츠를 웹 사이트에 표시합니다.
+
+[/] 및 [/read]의 두 가지 경로를 만듭니다.
+
+[/]는 [form]을 렌더링하여 파일을 업로드해야 합니다.
+
+[form]은 [POST]에서 [/read]로 되어야 한다.
+
+[POST]에서 [/read]로 .txt 파일을 허용하도록 [multer]를 구성합니다.
+
+[/read] [POST] 핸들러에서 [fs]를 사용하여 파일을 열고 사용자에게 내용을 표시합니다.
+---------------------------------------------------------------------------------
+[/] 경로에 업로드된 모든 파일의 이름이 표시됩니다. (fs.readDir를 사용하여 디렉토리의 내용을 봅니다.)
+
+각 파일 이름에는 [/read/:id]에 대한 링크가 있어야 하며 파일 내용을 표시합니다.
