@@ -107,9 +107,47 @@
                     rules의 style-loader를 대체
         6. 실행하면 assets/js 폴더안에 main.css 파일이 생성된 것을 볼 수 있다
         7. output을 살짝 수정한다
-            filename은 그대로 두고, output 을 수정한다
+                css 파일은 css폴더에 js 파일은 js폴더에 가도록 한다
+                    filename에서 js/, css/ 로 폴더안에 넣어준다
+        8. 모든 것은 main.js에서 시작한다 (importer)
+        9. pug에서 css 파일을 연결한다
+            head 안에 stylesheet link를 추가한다
+    (2) 내가 webpack을 실행하기 전, 항상 assets를 삭제한다
+        가끔 오래된, 새것이 아닌 복사본들이 남아있기 때문
 -----------------------------------------------------------------------------------
+# 9.6 Better Developer Experience
+    (1) 실행하기 전에 항상 assets을 삭제해 줘야 하는것과 SCSS나 프론트엔드쪽 자바스크립트에서
+        무언가를 변경할 때마다 npm run assets를 실행하는 건 더더욱 번거롭다
+    (2) watch라는 function을 사용한다
+        나중에 Heroku와 서버 등으로 deploy할 때는 변경을 할테지만 현재는 이렇게 해준다
+        이제 npm run assests 를 실행하면 이 명령어는 종료되지 않는다
+    (3) 컨솔을 둘 다 실행시켜야 한다 (서버 쪽, webpack 쪽)
+    (4) 현재는 front-end 자바스크립트 코드가 변경되면 back-end가 다시 재시작되고 있다
+        원하지 않던 일
+            output에 clean:true 를 추가한다
+            clean은 output folder 를 build를 시작하기 전에 clean 해준다
+    (5) webpack 파일을 저장하면 nodemon이 서버를 다시 시작한다
+        nodemon에게 몇가지 파일이나 폴더들을 무시하는 방법을 알려줘야 한다
+            package.json 의 scripts 에 명령문을 작성해서 실행하는 방법이 있고, 설정파일을 하나 생성하는 방법이 있다
+            이번 프로젝트에서는 파일을 하나 생성한다
+        nodemon.json 파일을 생성 후 
+{
+  "ignore": ["webpack.config.js", "src/client/*", "assets/*"],
+  "exec": "babel-node src/init.js"
+} 를 작성 후 package.json 파일의 scripts dev 를 "nodemon"으로 변경한다
+        nodemon에서 다른 설정파일을 생성하고 싶다면 명령어에, --config 를 붙이면 된다
+    (6) 스크립트의 "assets": "webpack --config webpack.config.js" 에서 --config webpack.config.js 는 생략 가능하다
+        webpack 이 실행되면 configuration하는 default가 webpack.config.js 파일이기 때문
+    (7) assets 폴더를 .gitignore 파일에 꼭 추가한다
+        GitHub에 upload해야 할 필요가 없기 때문
 -----------------------------------------------------------------------------------
------------------------------------------------------------------------------------
------------------------------------------------------------------------------------
+# 9.7 Recap
+    (1) 세련된 Javascript와 CSS를 작성하기
+    (2) 그것들을 브라우저가 이해할 수 있는 형태로 변형시키기
+    (3) 세련된 코드들은 /src/client/ 내에 두었다
+    (4) Webpack을 구성하기 위해서 우선 webpack.config.js 파일을 생성했다
+        이러한 파일명의 이유는 이게 기본 파일명이고, Webpack은 이 파일명을 찾게되기 때문이다
+    (5) 이 파일을 통해 기본적으로 src/client/js/main.js 를 변형시킨다
+    (6) webpack.config.js 파일이 하는 일은 entry 파일을 가지고 코드에 따라 변형을 시키게 된다
+    (7) pug를 활용해서 css와 js를 frontend template에 적용시킨다
 -----------------------------------------------------------------------------------
