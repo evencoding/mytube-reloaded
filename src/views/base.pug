@@ -16,6 +16,8 @@ html(lang="ko")
                         li 
                             a(href="/videos/upload") Upload Video
                         li 
+                            a(href=`/users/${loggedInUser._id}`) My Profile
+                        li 
                             a(href="/users/edit") Edit Profile
                         li 
                             a(href="/users/logout") Log Out
@@ -27,3 +29,4 @@ html(lang="ko")
         main
             block content
     include partials/footer
+    script(src="/static/js/main.js")
