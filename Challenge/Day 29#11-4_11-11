@@ -1,0 +1,29 @@
+Video part Two
+------------------------------------------------------------------------------------
+문제
+    https://codesandbox.io/s/a18blueprint-forked-v3vg3
+------------------------------------------------------------------------------------
+답
+    https://codesandbox.io/s/a18blueprint-forked-rxmuh?file=/src/index.js
+------------------------------------------------------------------------------------
+His
+    
+------------------------------------------------------------------------------------
+오늘 강의
+    오늘의 강의: 유튜브 클론코딩: From #11.4 to #11.11
+------------------------------------------------------------------------------------
+Tasks
+
+    Today we will finish making our video player!
+
+    Based on today's videos implement the following controls for the video:               '
+
+        Display Current Time
+        Timeline (video progress, jump on click)    
+        Fullscreen  
+        Keyboard Shorcuts: Press Space to Pause, Press 'F' to Enter Fullscreen, and Esc to Exist Fullscreen.
+------------------------------------------------------------------------------------
+fullScreen
+내가 찾은 해결방안
+HTMLMediaElement.load()
+fullscreenchange event
