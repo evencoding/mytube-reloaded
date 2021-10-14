@@ -1,0 +1,29 @@
+Audio Recording
+------------------------------------------------------------------------------------
+문제
+    https://codesandbox.io/s/a19blueprint-forked-zuogx
+------------------------------------------------------------------------------------
+답
+    https://codesandbox.io/s/a19blueprint-forked-zuogx?file=/src/index.js
+------------------------------------------------------------------------------------
+His
+    
+------------------------------------------------------------------------------------
+오늘 강의
+    오늘의 강의: 유튜브 클론코딩: From #13.0 to #13.5
+------------------------------------------------------------------------------------
+Tasks
+
+    Today we will make an audio recorder, it's just like the video recorder that we made on the course, but only with [audio:true], [video:false].  '
+
+    The user will also be able to download the recording file when the recording is over.
+
+    Features:
+
+        Record for maximum 5 seconds.
+        Show the user a preview of the recording to listen to it on the website (make an audio player)
+        Make buttons to [Start Recording] and [Download Recording] when the recording is over.
+------------------------------------------------------------------------------------
+Hints
+    audio (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio)
+------------------------------------------------------------------------------------
