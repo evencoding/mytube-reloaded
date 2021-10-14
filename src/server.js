@@ -35,7 +35,17 @@ app.use(
 
 app.use(localsMiddleware);
 app.use("/uploads", express.static("uploads"));
-app.use("/static", express.static("assets"));
+app.use(
+  "/static",
+  express.static("assets"),
+  express.static("node_modules/@ffmpeg/core/dist")
+);
+// Uncaught (in promise) ReferenceError: SharedArrayBuffer is not defined 에러 해결
+app.use((req, res, next) => {
+  res.header("Cross-Origin-Embedder-Policy", "require-corp");
+  res.header("Cross-Origin-Opener-Policy", "same-origin");
+  next();
+});
 app.use("/", rootRouter);
 app.use("/users", userRouter);
 app.use("/videos", videoRouter);
