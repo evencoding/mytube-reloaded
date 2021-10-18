@@ -4,12 +4,15 @@ header {
   justify-content: space-between;
   align-items: center;
   span {
-    font-size: 32px;
-    font-weight: 600;
+    font-size: 35px;
+    font-weight: 800;
     margin-right: 8px;
   }
   .header__logo {
-    color: $red;
+    background: linear-gradient(to right, #c9ffbf, #ffafbd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    // color: $red;
     font-size: 38px;
     display: flex;
     align-items: center;

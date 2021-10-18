@@ -1,0 +1,22 @@
+Quiz
+
+1. Why do we need to convert our file?
+    Because not all devices understand WebM
+
+2. What is ffmpeg?
+    A program to manipulate videos.
+
+3. With ffmpeg we can extract the audio from a video.
+    Yes. We can do anything with a video.
+
+4. With ffmpeg we can extract images from a video.
+    Yes. We can do anything with a video.
+
+5. What is WebAssembly?
+    A standard that allows us to run Non-JS code on the browser.
+
+6. With WebAssembly we don’t have to use Javascript on the browser.
+    Yes.
+
+7. WebAssembly allows us to run faster code on the browser.
+    Yes.
