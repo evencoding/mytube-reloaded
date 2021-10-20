@@ -10,7 +10,28 @@
 .video__owner {
   display: block;
   a {
+    color: cornflowerblue;
     text-decoration: underline;
   }
   margin-bottom: 5px;
+}
+
+.video__comments {
+  display: flex;
+  flex-direction: column;
+  max-width: 550px;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 20px;
+  background-color: white;
+  border-radius: 10px;
+  i {
+    margin-right: 10px;
+  }
+  .video__comment {
+    padding: 10px;
+    color: black;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  }
 }
