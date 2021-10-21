@@ -7,8 +7,12 @@
     "url": "git+https://github.com/evencoding/mytube-reloaded.git"
   },
   "scripts": {
+    "start": "node build/init.js",
+    "build": "npm run build:server && npm run build:assets",
+    "build:server": "babel src -d build --ignore src/client",
+    "build:assets": "webpack --mode=production",
     "dev:server": "nodemon",
-    "dev:assets": "webpack --config webpack.config.js"
+    "dev:assets": "webpack --mode=development -w"
   },
   "author": "JUNGWOO<evencoding@gmail.com>",
   "license": "MIT",
@@ -33,7 +37,8 @@
     "regenerator-runtime": "^0.13.9"
   },
   "devDependencies": {
-    "@babel/core": "^7.15.0",
+    "@babel/cli": "^7.15.7",
+    "@babel/core": "^7.15.8",
     "@babel/node": "^7.14.9",
     "@babel/preset-env": "^7.15.6",
     "babel-loader": "^8.2.2",

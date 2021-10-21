@@ -46,3 +46,14 @@
     cursor: pointer;
   }
 }
+
+#commentForm {
+  display: flex;
+  align-items: center;
+  i {
+    font-size: 18px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+  }
+}

@@ -153,7 +153,6 @@ export const deleteComment = async (req, res) => {
     session: { user },
     params: { id },
   } = req;
-  console.log(user, id);
   const comment = await Comment.findById(id);
   if (!comment) {
     return res.sendStatus(404);
@@ -168,5 +167,5 @@ export const deleteComment = async (req, res) => {
   await Comment.findByIdAndDelete(id);
   video.comments.remove(id);
   video.save();
-  return res.sendStatue(201);
+  return res.sendStatus(201);
 };
