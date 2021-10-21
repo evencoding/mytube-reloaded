@@ -6,6 +6,10 @@
     "type": "git",
     "url": "git+https://github.com/evencoding/mytube-reloaded.git"
   },
+  "engines": {
+    "node": "14.17.4",
+    "npm": "6.14.14"
+  },
   "scripts": {
     "start": "node build/init.js",
     "build": "npm run build:server && npm run build:assets",
