@@ -148,6 +148,19 @@
                         Heroku의 Config 변수로 Client ID와 Client Secret이 있다
                     2. 테스트 앱
                         .env 파일에 Client ID와 Client Secret이 있다
+
+    (2) Heroku CLI가 아닌 GitHub로 배포하는 방법
+        Heroku 배포에서 GitHub를 선택하고 인증하고 인증을 한 후, 내 repo를 찾아 연결시켜준다
+        이제 내가 매번 git push origin master/main을 할 때마다 바로 배포한다
+            Automatic deploys 를 활성화
+            설정한 브랜치는 항상 배포 가능한 상태여야 한다
+        git push heroku master/main를 할 필요가 없다
+            git push origin master/main 을 하면 Heroku 사이트에서 새 빌드를 시작한다
+            매번 git push origin master/main 을 할 때마다 웹 사이트가 다시 빌드 되기 때문에 조심해야한다
+            이건 Github를 업데이트 할 것이고, Heroku가 Github를 관찰하고 있을 것이다
+                그래서 Github의 master/main 브랜치에 새 commit이 생기면 Heroku는 새 빌드를 실행 할 것이다
+    (3) 웹 사이트에 파일을 업로드하면 파일은 heroku 서버에 있다
+        만약 git push로 heroku 프로젝트를 다시 배포하면 이 파일은 사라진다
 -----------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------
