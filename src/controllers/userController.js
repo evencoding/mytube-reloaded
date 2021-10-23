@@ -154,13 +154,10 @@ export const postEdit = async (req, res) => {
     body: { name, email, username, location },
     file,
   } = req;
-  if (file) {
-    req.session.user.avatarUrl = file.path;
-  }
   const updateUser = await User.findByIdAndUpdate(
     _id,
     {
-      avatarUrl: file ? file.path : avatarUrl,
+      avatarUrl: file ? file.location : avatarUrl,
       name,
       email,
       username,
@@ -168,6 +165,7 @@ export const postEdit = async (req, res) => {
     },
     { new: true }
   );
+  req.session.user = updateUser;
   return res.redirect("/users/edit");
 };
 
