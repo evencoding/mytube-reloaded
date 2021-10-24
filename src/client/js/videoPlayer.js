@@ -1,3 +1,5 @@
+import { async } from "regenerator-runtime";
+
 const video = document.querySelector("video");
 const playBtn = document.getElementById("play");
 const playBtnIcon = playBtn.querySelector("i");
@@ -57,9 +59,9 @@ const handleVolumeChange = (event) => {
 const formatTime = (seconds) =>
   new Date(seconds * 1000).toISOString().substr(14, 5);
 
-const handleLoadedMetadata = () => {
-  totalTime.innerText = formatTime(Math.floor(video.duration));
-  timeline.max = Math.floor(video.duration);
+const handleLoadedMetadata = async () => {
+  totalTime.innerText = await formatTime(Math.floor(video.duration));
+  timeline.max = await Math.floor(video.duration);
 };
 
 const handleTimeUpdate = () => {
